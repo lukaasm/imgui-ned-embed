@@ -4,7 +4,6 @@
 */
 
 #include "file_monitor.h"
-#include <GLFW/glfw3.h>
 #include <algorithm>
 #include <fstream>
 #include <iostream>
@@ -67,7 +66,7 @@ void FileMonitor::checkForExternalFileChanges()
 
 	// Throttle checks to avoid performance impact - check every second like the old
 	// implementation
-	double currentTime = glfwGetTime();
+	double currentTime = 0.0f;// glfwGetTime();
 	const double FILE_CHANGE_CHECK_INTERVAL = 1.0; // Check every second
 	if (currentTime - _lastChangeCheckTime < FILE_CHANGE_CHECK_INTERVAL)
 	{

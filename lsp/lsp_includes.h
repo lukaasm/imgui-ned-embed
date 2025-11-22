@@ -1,19 +1,14 @@
 #pragma once
 
 // Platform-specific LSP framework includes
-#ifdef _WIN32
-#include "../build/lib/lsp-framework/generated/lsp/messages.h"
-#include "../build/lib/lsp-framework/generated/lsp/types.h"
-#else
-#include "../.build/lib/lsp-framework/generated/lsp/messages.h"
-#include "../.build/lib/lsp-framework/generated/lsp/types.h"
-#endif
+#include "lsp/messages.h"
+#include "lsp/types.h"
 
 // Common LSP framework includes
-#include "../lib/lsp-framework/lsp/connection.h"
-#include "../lib/lsp-framework/lsp/error.h"
-#include "../lib/lsp-framework/lsp/messagehandler.h"
-#include "../lib/lsp-framework/lsp/process.h"
+#include "lsp/connection.h"
+#include "lsp/error.h"
+#include "lsp/messagehandler.h"
+#include "lsp/process.h"
 
 // Common project includes used by LSP classes
 #include "../editor/editor.h"

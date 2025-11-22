@@ -1,6 +1,6 @@
 #include "ai_agent_text_input.h"
 #include "../files/files.h" // for gFileExplorer
-#include "../lib/json.hpp"
+#include "nlohmann/json.hpp"
 #include "editor/editor.h" // for editor_state
 #include "util/settings.h"
 #include <cctype>

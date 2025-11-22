@@ -1,7 +1,6 @@
 // welcome.h
 #pragma once
 #include "imgui.h"
-#include <GLFW/glfw3.h>
 #include <string>
 
 class Welcome
@@ -38,12 +37,12 @@ class Welcome
 	bool isEmbedded;
 
 	// Logo texture
-	GLuint nedLogoTexture;
+	ImTextureID nedLogoTexture;
 
 	// Welcome theme images
 	struct WelcomeImage
 	{
-		GLuint texture;
+		ImTextureID texture;
 		std::string name;
 		std::string filename;
 		bool loaded;

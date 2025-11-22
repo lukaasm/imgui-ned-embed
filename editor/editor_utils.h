@@ -1,6 +1,5 @@
 #pragma once
 #include "imgui.h"
-#include <GLFW/glfw3.h> // For time functions
 #include <algorithm>
 #include <cmath>
 #include <vector>
@@ -14,7 +13,7 @@ inline ImVec4 GetRainbowColor(float timeScale = 2.0f)
 	static double lastUpdateTime = 0.0;
 
 	// Update time only once per frame
-	double currentTime = glfwGetTime();
+	double currentTime = ImGui::GetIO().DeltaTime;
 	if (currentTime > lastUpdateTime)
 	{
 		sharedBlinkTime += (currentTime - lastUpdateTime) * timeScale;

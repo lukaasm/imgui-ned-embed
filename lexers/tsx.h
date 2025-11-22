@@ -17,7 +17,7 @@ class Settings;
 extern Settings gSettings;
 
 // Forward declare json if needed (likely included via settings.h)
-#include <lib/json.hpp> // Assuming settings.h includes this, otherwise add it here
+#include "nlohmann/json.hpp"// Assuming settings.h includes this, otherwise add it here
 
 namespace TsxLexer {
 

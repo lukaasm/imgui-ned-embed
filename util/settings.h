@@ -1,5 +1,5 @@
 #pragma once
-#include "../lib/json.hpp"
+#include "nlohmann/json.hpp"
 #include "close_popper.h"
 #include "imgui.h"
 #include "settings_file_manager.h"

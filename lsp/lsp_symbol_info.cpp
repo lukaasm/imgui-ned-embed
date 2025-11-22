@@ -62,7 +62,7 @@ void LSPSymbolInfo::request(int line,
 					callback("No hover info");
 				}
 			},
-			[callback](auto &error) { callback("LSP error"); });
+			[callback](auto &&error) { callback("LSP error"); });
 
 	} catch (const std::exception &e)
 	{

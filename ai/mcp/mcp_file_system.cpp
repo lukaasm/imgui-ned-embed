@@ -1,6 +1,6 @@
 #include "mcp_file_system.h"
 #include "../ai_open_router.h"
-#include "../lib/json.hpp"
+#include "nlohmann/json.hpp"
 #include "../util/settings.h"
 #include "../util/settings_file_manager.h"
 #include <curl/curl.h>

@@ -6,12 +6,12 @@
 #ifdef assert
 #undef assert
 #endif
-#include "../lib/utfcpp/source/utf8.h"
+#include "utf8cpp/utf8.h"
 #ifdef _WIN32
 #define assert(expr) ((void)0)
 #endif
 #else
-#include "../lib/utfcpp/source/utf8.h"
+#include "utf8cpp/utf8.h"
 #endif
 
 #include "editor.h"

@@ -72,7 +72,7 @@ void Init::initializeUISettings()
 	Splitter::adjustAgentSplitPosition();
 }
 
-void Init::initializeMacOS(GLFWwindow *window)
+void Init::initializeMacOS()
 {
 #ifdef __APPLE__
 	float opacity = gSettings.getSettings().value("mac_background_opacity", 0.5f);
@@ -86,7 +86,7 @@ void Init::initializeMacOS(GLFWwindow *window)
 #endif
 }
 
-bool Init::initializeGraphics(GLFWwindow *window)
+bool Init::initializeGraphics()
 {
 	// Initialize ImGui
 	initializeImGui(window);
@@ -112,7 +112,7 @@ void Init::initializeResources()
 	gFileExplorer.loadIcons();
 }
 
-void Init::initializeImGui(GLFWwindow *window)
+void Init::initializeImGui()
 {
 	IMGUI_CHECKVERSION();
 	ImGui::CreateContext();
@@ -180,8 +180,8 @@ void Init::initializeImGui(GLFWwindow *window)
 	colors[ImGuiCol_ScrollbarGrabActive] =
 		ImVec4(0.06f, 0.35f, 0.60f, 1.00f); // Scrollbar grab active
 
-	ImGui_ImplGlfw_InitForOpenGL(window, true);
-	ImGui_ImplOpenGL3_Init("#version 330");
+	//ImGui_ImplGlfw_InitForOpenGL(window, true);
+	//ImGui_ImplOpenGL3_Init("#version 330");
 }
 
 void Init::initializeAll(GLFWwindow *window)
@@ -196,7 +196,7 @@ void Init::initializeAll(GLFWwindow *window)
 	initializeUISettings();
 
 	// Initialize macOS-specific settings
-	initializeMacOS(window);
+	//initializeMacOS(window);
 
 	// Initialize graphics and rendering components
 	initializeGraphics(window);

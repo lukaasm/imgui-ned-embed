@@ -1,6 +1,6 @@
 // keybinds.h
 #pragma once
-#include "../lib/json.hpp"
+#include "nlohmann/json.hpp"
 #include "imgui.h" // <<< ADD THIS for ImGuiKey
 #include "settings_file_manager.h"
 #include <filesystem>

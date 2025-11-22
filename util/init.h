@@ -6,8 +6,6 @@ Consolidated from ned.cpp and initialization_manager.cpp
 
 #pragma once
 
-#include <GL/glew.h>
-#include <GLFW/glfw3.h>
 #include <csignal>
 #include <iostream>
 
@@ -26,7 +24,7 @@ class Init
 {
   public:
 	// Core ImGui initialization
-	static void initializeImGui(GLFWwindow *window);
+	static void initializeImGui();
 
 	// Resource initialization
 	static void initializeResources();
@@ -37,17 +35,14 @@ class Init
 	// Settings and configuration initialization
 	static void initializeSettings();
 
-	// macOS-specific initialization
-	static void initializeMacOS(GLFWwindow *window);
-
 	// Graphics and rendering initialization
-	static bool initializeGraphics(GLFWwindow *window);
+	static bool initializeGraphics();
 
 	// UI settings initialization
 	static void initializeUISettings();
 
 	// Consolidated initialization - calls all the above methods
-	static void initializeAll(GLFWwindow *window);
+	static void initializeAll();
 
 	// Main initialization method for all components
 	static bool initializeAllComponents(App &app,

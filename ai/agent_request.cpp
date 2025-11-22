@@ -1,5 +1,5 @@
 #include "agent_request.h"
-#include "../lib/json.hpp"
+#include "nlohmann/json.hpp"
 #include "ai_agent.h"
 #include "ai_open_router.h"
 #include "mcp/mcp_manager.h"
@@ -14,7 +14,7 @@
 #ifdef assert
 #undef assert
 #endif
-#include <utf8.h>
+#include <utf8cpp/utf8.h>
 #ifdef _WIN32
 #define assert(expr) ((void)0)
 #endif

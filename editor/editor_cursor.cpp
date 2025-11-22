@@ -1,6 +1,6 @@
 #include "editor_cursor.h"
 #include "../files/files.h"
-#include "../lib/utfcpp/source/utf8.h"
+#include "utf8cpp/utf8.h"
 #include "../util/settings.h"
 #include "editor.h"
 #include "editor/utf8_utils.h"

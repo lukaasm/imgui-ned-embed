@@ -1,5 +1,5 @@
 #include "mcp_manager.h"
-#include "../lib/json.hpp"
+#include "nlohmann/json.hpp"
 #include "mcp_file_system.h"
 #include "mcp_terminal.h"
 #include <iostream>

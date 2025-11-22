@@ -10,7 +10,7 @@ This provides the full NED editor functionality without window management.
 #include <string>
 
 // Forward declarations
-class ImFont;
+struct ImFont;
 class Settings;
 class Splitter;
 class WindowResize;

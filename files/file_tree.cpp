@@ -4,7 +4,6 @@
 #include "../files/files.h"
 #include "../util/settings.h"
 #include "editor.h"
-#include <GLFW/glfw3.h>
 #include <algorithm>
 #include <iostream>
 
@@ -293,7 +292,7 @@ void FileTree::refreshFileTree()
 	} else
 	{
 		// Use normal interval checks after initial load
-		double currentTime = glfwGetTime();
+		double currentTime = 0.0f;// glfwGetTime();
 		if (currentTime - lastFileTreeRefreshTime < FILE_TREE_REFRESH_INTERVAL)
 		{
 			return;

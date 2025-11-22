@@ -4,7 +4,7 @@ Description: Implementation of the embeddable NED editor wrapper.
 */
 
 // Include GLEW first to avoid conflicts
-#include <GL/glew.h>
+//#include <GL/glew.h>
 
 #include "ned_embed.h"
 

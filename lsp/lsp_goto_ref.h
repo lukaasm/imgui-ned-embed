@@ -7,13 +7,7 @@
 #include <memory>
 #include <string>
 #include <vector>
-
-// Need the actual LSP types for the function signature
-#ifdef _WIN32
-#include "../build/lib/lsp-framework/generated/lsp/types.h"
-#else
-#include "../.build/lib/lsp-framework/generated/lsp/types.h"
-#endif
+#include "lsp/types.h"
 
 class LSPGotoRef
 {

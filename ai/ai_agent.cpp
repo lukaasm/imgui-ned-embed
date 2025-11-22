@@ -1,6 +1,6 @@
 #include "ai_agent.h"
 #include "../files/files.h" // for gFileExplorer
-#include "../lib/json.hpp"
+#include "nlohmann/json.hpp"
 #include "agent_request.h"
 #include "editor/editor.h" // for editor_state
 #include "mcp/mcp_manager.h"
@@ -24,7 +24,7 @@
 #ifdef assert
 #undef assert
 #endif
-#include <utf8.h>
+#include <utf8cpp/utf8.h>
 #ifdef _WIN32
 #define assert(expr) ((void)0)
 #endif
@@ -541,7 +541,7 @@ void AIAgent::renderMessageHistory(const ImVec2 &size, ImFont *largeFont)
 			if (largeFont)
 				ImGui::PushFont(largeFont);
 			ImVec2 textSize =
-				largeFont->CalcTextSizeA(largeFont->LegacySize, FLT_MAX, 0.0f, "Agent");
+				largeFont->CalcTextSizeA(largeFont->FontSize, FLT_MAX, 0.0f, "Agent");
 			ImVec2 centerPos = ImVec2((windowSize.x - textSize.x) * 0.5f,
 									  (windowSize.y - textSize.y) * 0.5f - 30.0f);
 			ImGui::SetCursorPos(centerPos);
@@ -554,7 +554,7 @@ void AIAgent::renderMessageHistory(const ImVec2 &size, ImFont *largeFont)
 			for (const auto &item : displayItems)
 			{
 				ImVec2 itemSize = largeFont->CalcTextSizeA(
-					largeFont->LegacySize, FLT_MAX, 0.0f, item.c_str());
+					largeFont->FontSize, FLT_MAX, 0.0f, item.c_str());
 				maxItemWidth = std::max(maxItemWidth, itemSize.x);
 			}
 

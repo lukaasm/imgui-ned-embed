@@ -11,7 +11,6 @@
 #include "config.h"
 #include "imgui.h"
 #include "imgui_internal.h"
-#include <GLFW/glfw3.h>
 
 // Add includes for macOS window functions
 #ifdef __APPLE__
@@ -374,7 +373,7 @@ void Settings::renderWindowHeader()
 	bool isHovered = ImGui::IsItemHovered();
 	ImGui::SetCursorPos(cursor_pos);
 	ImTextureID closeIcon = gFileExplorer.getIcon("close");
-	ImGui::Image(ImTextureRef(closeIcon),
+	ImGui::Image( closeIcon,
 				 ImVec2(closeIconSize, closeIconSize),
 				 ImVec2(0, 0),
 				 ImVec2(1, 1),

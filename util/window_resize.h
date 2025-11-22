@@ -7,7 +7,6 @@ drag detection, and cursor management.
 
 #pragma once
 
-#include <GLFW/glfw3.h>
 #include <imgui.h>
 
 // Forward declarations

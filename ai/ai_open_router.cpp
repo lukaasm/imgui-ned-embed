@@ -1,5 +1,5 @@
 #include "ai_open_router.h"
-#include "../lib/json.hpp"
+#include "nlohmann/json.hpp"
 #include "../util/settings.h"
 #include <atomic>
 #include <curl/curl.h>

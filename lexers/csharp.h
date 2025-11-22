@@ -14,7 +14,7 @@
 // Forward declare Settings and json as needed
 class Settings;
 extern Settings gSettings;
-#include <lib/json.hpp> // Assuming settings.h includes this, otherwise add it here
+#include "nlohmann/json.hpp"// Assuming settings.h includes this, otherwise add it here
 
 namespace CSharpLexer {
 

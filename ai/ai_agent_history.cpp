@@ -1,7 +1,7 @@
 // ai_agent_history.cpp
 #include "ai_agent_history.h"
 #include "../files/files.h"
-#include "../lib/json.hpp"
+#include "nlohmann/json.hpp"
 #include "../util/settings.h"
 #include "ai_agent.h"
 #include <filesystem>

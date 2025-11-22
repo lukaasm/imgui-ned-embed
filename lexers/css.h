@@ -14,7 +14,7 @@
 // Forward declare Settings and json as needed
 class Settings;
 extern Settings gSettings;
-#include <lib/json.hpp> // Assuming settings.h includes this
+#include "nlohmann/json.hpp"// Assuming settings.h includes this
 
 namespace CssLexer {
 

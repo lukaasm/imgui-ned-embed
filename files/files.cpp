@@ -8,26 +8,24 @@
 #include <chrono>
 #include <fstream>
 #include <iostream>
-#include <nfd.h>
 #include <sstream>
 #include <thread>
 
 #include "../editor/editor_highlight.h"
 #include "../editor/editor_line_jump.h"
-#include "../lib/json.hpp"
+#include "nlohmann/json.hpp"
 #include "../util/close_popper.h"
 #include "../util/icon_definitions.h"
 #include "../util/settings.h"
 #include "files.h"
 #include "imgui.h"
-#include "imgui_impl_opengl3.h"
 #include <fstream>
 using json = nlohmann::json;
 
-#define NANOSVG_IMPLEMENTATION
-#include "lib/nanosvg.h"
-#define NANOSVGRAST_IMPLEMENTATION
-#include "lib/nanosvgrast.h"
+//#define NANOSVG_IMPLEMENTATION
+//#include "lib/nanosvg.h"
+//#define NANOSVGRAST_IMPLEMENTATION
+//#include "lib/nanosvgrast.h"
 
 #include "../ai/ai_agent.h"
 #include "../editor/editor_git.h"
@@ -52,16 +50,18 @@ void FileExplorer::loadIcons()
 	}
 }
 
-GLuint FileExplorer::createTexture(const unsigned char *pixels, int width, int height)
+uint32_t FileExplorer::createTexture(const unsigned char *pixels, int width, int height)
 {
-	GLuint texture;
-	glGenTextures(1, &texture);
-	glBindTexture(GL_TEXTURE_2D, texture);
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
-	glTexImage2D(
-		GL_TEXTURE_2D, 0, GL_RGBA, width, height, 0, GL_RGBA, GL_UNSIGNED_BYTE, pixels);
-	return texture;
+	//GLuint texture;
+	//glGenTextures(1, &texture);
+	//glBindTexture(GL_TEXTURE_2D, texture);
+	//glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+	//glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+	//glTexImage2D(
+	//	GL_TEXTURE_2D, 0, GL_RGBA, width, height, 0, GL_RGBA, GL_UNSIGNED_BYTE, pixels);
+	//return texture;
+
+	return 0;
 }
 
 bool FileExplorer::loadSingleIcon(
@@ -112,63 +112,65 @@ bool FileExplorer::loadSingleIcon(
 		return false;
 	}
 
-	// Load SVG (or other image type if you adapt this part)
-	// Assuming nsvgParseFromFile, IconDimensions, nsvgCreateRasterizer, etc.
-	// are available.
-	NSVGimage *image =
-		nsvgParseFromFile(finalPathToLoad.c_str(), "px", IconDimensions::SVG_DPI);
-	if (!image)
-	{
-		std::cerr << "Error loading SVG file: " << finalPathToLoad << std::endl;
-		return false;
-	}
+	return false;
 
-	// Create rasterizer
-	NSVGrasterizer *rast = nsvgCreateRasterizer();
-	if (!rast)
-	{
-		std::cerr << "Error creating SVG rasterizer" << std::endl;
-		nsvgDelete(image);
-		return false;
-	}
+	//// Load SVG (or other image type if you adapt this part)
+	//// Assuming nsvgParseFromFile, IconDimensions, nsvgCreateRasterizer, etc.
+	//// are available.
+	//NSVGimage *image =
+	//	nsvgParseFromFile(finalPathToLoad.c_str(), "px", IconDimensions::SVG_DPI);
+	//if (!image)
+	//{
+	//	std::cerr << "Error loading SVG file: " << finalPathToLoad << std::endl;
+	//	return false;
+	//}
 
-	// Allocate pixel buffer
-	// Ensure IconDimensions::WIDTH and IconDimensions::HEIGHT are correctly defined.
-	auto pixels = std::make_unique<unsigned char[]>(IconDimensions::WIDTH *
-													IconDimensions::HEIGHT * 4);
+	//// Create rasterizer
+	//NSVGrasterizer *rast = nsvgCreateRasterizer();
+	//if (!rast)
+	//{
+	//	std::cerr << "Error creating SVG rasterizer" << std::endl;
+	//	nsvgDelete(image);
+	//	return false;
+	//}
 
-	// Rasterize SVG
-	nsvgRasterize(rast,
-				  image,
-				  0,
-				  0,
-				  IconDimensions::WIDTH / image->width, // Or some other scaling factor
-				  pixels.get(),
-				  IconDimensions::WIDTH,
-				  IconDimensions::HEIGHT,
-				  IconDimensions::WIDTH * 4); // Stride
+	//// Allocate pixel buffer
+	//// Ensure IconDimensions::WIDTH and IconDimensions::HEIGHT are correctly defined.
+	//auto pixels = std::make_unique<unsigned char[]>(IconDimensions::WIDTH *
+	//												IconDimensions::HEIGHT * 4);
 
-	// Create OpenGL texture
-	// Ensure createTexture is correctly defined and returns a GLuint.
-	GLuint texture =
-		createTexture(pixels.get(), IconDimensions::WIDTH, IconDimensions::HEIGHT);
-	if (texture == 0)
-	{ // Assuming 0 indicates failure in createTexture
-		std::cerr << "Error creating OpenGL texture for icon: " << finalPathToLoad
-				  << std::endl;
-		nsvgDeleteRasterizer(rast);
-		nsvgDelete(image);
-		return false;
-	}
+	//// Rasterize SVG
+	//nsvgRasterize(rast,
+	//			  image,
+	//			  0,
+	//			  0,
+	//			  IconDimensions::WIDTH / image->width, // Or some other scaling factor
+	//			  pixels.get(),
+	//			  IconDimensions::WIDTH,
+	//			  IconDimensions::HEIGHT,
+	//			  IconDimensions::WIDTH * 4); // Stride
 
-	// Store in icon map
-	std::string iconName =
-		iconFile.substr(0, iconFile.find('.')); // Gets "file" from "file.svg"
-	fileTypeIcons[iconName] = static_cast<ImTextureID>(texture);
+	//// Create OpenGL texture
+	//// Ensure createTexture is correctly defined and returns a GLuint.
+	//GLuint texture =
+	//	createTexture(pixels.get(), IconDimensions::WIDTH, IconDimensions::HEIGHT);
+	//if (texture == 0)
+	//{ // Assuming 0 indicates failure in createTexture
+	//	std::cerr << "Error creating OpenGL texture for icon: " << finalPathToLoad
+	//			  << std::endl;
+	//	nsvgDeleteRasterizer(rast);
+	//	nsvgDelete(image);
+	//	return false;
+	//}
 
-	// Cleanup
-	nsvgDeleteRasterizer(rast);
-	nsvgDelete(image);
+	//// Store in icon map
+	//std::string iconName =
+	//	iconFile.substr(0, iconFile.find('.')); // Gets "file" from "file.svg"
+	//fileTypeIcons[iconName] = static_cast<ImTextureID>(texture);
+
+	//// Cleanup
+	//nsvgDeleteRasterizer(rast);
+	//nsvgDelete(image);
 
 	return true;
 }
@@ -186,93 +188,93 @@ void FileExplorer::createDefaultIcon()
 		255 // Black pixel
 	};
 
-	GLuint texture = createTexture(defaultIcon, 2, 1);
-	fileTypeIcons["default"] = static_cast<ImTextureID>(texture);
+	auto texture = createTexture(defaultIcon, 2, 1);
+	fileTypeIcons["default"] = static_cast<ImTextureID>((void*)texture);
 }
 
 void FileExplorer::openFolderDialog()
 {
-	std::cout << "\033[35mFiles:\033[0m Opening folder dialog" << std::endl;
-	nfdchar_t *outPath = NULL;
-	nfdresult_t result = NFD_PickFolder(NULL, &outPath);
-	if (result == NFD_OKAY)
-	{
-		selectedFolder = outPath;
-		std::cout << "\033[35mFiles:\033[0m Selected folder: " << outPath << std::endl;
+	//std::cout << "\033[35mFiles:\033[0m Opening folder dialog" << std::endl;
+	//nfdchar_t *outPath = NULL;
+	//nfdresult_t result = NFD_PickFolder(NULL, &outPath);
+	//if (result == NFD_OKAY)
+	//{
+	//	selectedFolder = outPath;
+	//	std::cout << "\033[35mFiles:\033[0m Selected folder: " << outPath << std::endl;
 
-		free(outPath);
-		_showFileDialog = false;
-		showWelcomeScreen = false;
-		loadUndoRedoState();
+	//	free(outPath);
+	//	_showFileDialog = false;
+	//	showWelcomeScreen = false;
+	//	loadUndoRedoState();
 
-		// Load AI agent conversation history
-		gAIAgent.getHistoryManager().loadConversationHistory();
+	//	// Load AI agent conversation history
+	//	gAIAgent.getHistoryManager().loadConversationHistory();
 
-		// Initialize git tracking for the project
-		gEditorGit.init();
+	//	// Initialize git tracking for the project
+	//	gEditorGit.init();
 
-		// Start simple file tree git status tracking
-		gFileTree.stopGitStatusTracking();
-		gFileTree.startGitStatusTracking();
+	//	// Start simple file tree git status tracking
+	//	gFileTree.stopGitStatusTracking();
+	//	gFileTree.startGitStatusTracking();
 
-		// Scan project files for external change monitoring
-		_fileMonitor.startMonitoring(selectedFolder);
+	//	// Scan project files for external change monitoring
+	//	_fileMonitor.startMonitoring(selectedFolder);
 
-		// Set up callback for external file changes
-		_fileMonitor.onFileChanged = [this](const std::string &filePath,
-											const std::string &filename) {
-			if (filePath == currentFile)
-			{
-				// Handle current file change by reloading
-				if (!_unsavedChanges)
-				{
-					// Store current cursor position
-					int currentCursorPos = editor_state.cursor_index;
+	//	// Set up callback for external file changes
+	//	_fileMonitor.onFileChanged = [this](const std::string &filePath,
+	//										const std::string &filename) {
+	//		if (filePath == currentFile)
+	//		{
+	//			// Handle current file change by reloading
+	//			if (!_unsavedChanges)
+	//			{
+	//				// Store current cursor position
+	//				int currentCursorPos = editor_state.cursor_index;
 
-					// Reload the file content
-					if (readFileContent(filePath))
-					{
-						updateFileColorBuffer();
-						gEditorHighlight.highlightContent();
+	//				// Reload the file content
+	//				if (readFileContent(filePath))
+	//				{
+	//					updateFileColorBuffer();
+	//					gEditorHighlight.highlightContent();
 
-						// Try to restore cursor position
-						if (currentCursorPos <
-							static_cast<int>(editor_state.fileContent.length()))
-						{
-							editor_state.cursor_index = currentCursorPos;
-						} else
-						{
-							editor_state.cursor_index = editor_state.fileContent.length();
-						}
+	//					// Try to restore cursor position
+	//					if (currentCursorPos <
+	//						static_cast<int>(editor_state.fileContent.length()))
+	//					{
+	//						editor_state.cursor_index = currentCursorPos;
+	//					} else
+	//					{
+	//						editor_state.cursor_index = editor_state.fileContent.length();
+	//					}
 
-						// Update tracking
-						_fileMonitor.addFileToMonitoring(currentFile);
+	//					// Update tracking
+	//					_fileMonitor.addFileToMonitoring(currentFile);
 
-						gSettings.renderNotification("File Modified", 2.0f);
-					} else
-					{
-						gSettings.renderNotification("Failed to reload modified file",
-													 3.0f);
-					}
-				} else
-				{
-					gSettings.renderNotification(
-						"File changed externally but you have unsaved changes", 3.0f);
-				}
-			} else
-			{
-				// Show notification for non-current file changes
-				gSettings.renderNotification("Modified: " + filename, 3.0f);
-			}
-		};
-	} else if (result == NFD_CANCEL)
-	{
-		std::cout << "\033[35mFiles:\033[0m User canceled folder selection." << std::endl;
-		_showFileDialog = false; // Reset flag on cancel
-	} else
-	{
-		std::cout << "\033[35mFiles:\033[0m Error: " << NFD_GetError() << std::endl;
-	}
+	//					gSettings.renderNotification("File Modified", 2.0f);
+	//				} else
+	//				{
+	//					gSettings.renderNotification("Failed to reload modified file",
+	//												 3.0f);
+	//				}
+	//			} else
+	//			{
+	//				gSettings.renderNotification(
+	//					"File changed externally but you have unsaved changes", 3.0f);
+	//			}
+	//		} else
+	//		{
+	//			// Show notification for non-current file changes
+	//			gSettings.renderNotification("Modified: " + filename, 3.0f);
+	//		}
+	//	};
+	//} else if (result == NFD_CANCEL)
+	//{
+	//	std::cout << "\033[35mFiles:\033[0m User canceled folder selection." << std::endl;
+	//	_showFileDialog = false; // Reset flag on cancel
+	//} else
+	//{
+	//	std::cout << "\033[35mFiles:\033[0m Error: " << NFD_GetError() << std::endl;
+	//}
 }
 
 bool FileExplorer::handleFileDialogWorkflow()

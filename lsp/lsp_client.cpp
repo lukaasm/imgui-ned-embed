@@ -6,7 +6,7 @@
 #include "lsp_goto_ref.h"
 #include "lsp_symbol_info.h"
 
-#include "../lib/json.hpp"
+#include "nlohmann/json.hpp"
 #include "../util/settings_file_manager.h"
 #include "imgui.h"
 #include <algorithm>

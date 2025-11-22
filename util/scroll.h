@@ -5,8 +5,10 @@ Description: Scroll accumulator handling functions
 
 #pragma once
 
-#include <GLFW/glfw3.h>
+//#include <GLFW/glfw3.h>
 #include <functional>
+
+struct GLFWwindow;
 
 class Scroll
 {

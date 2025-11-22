@@ -5,7 +5,7 @@
 
 #pragma once
 #include "imgui.h"
-#include <GLFW/glfw3.h>
+//#include <GLFW/glfw3.h>
 
 #include "../editor/editor.h"
 
@@ -156,7 +156,7 @@ class FileExplorer
 		static constexpr float SVG_DPI = 96.0f;
 	};
 
-	GLuint createTexture(const unsigned char *pixels, int width, int height);
+	uint32_t createTexture(const unsigned char *pixels, int width, int height);
 	bool loadSingleIcon(const std::string &iconFile);
 	void createDefaultIcon();
 
