@@ -216,13 +216,13 @@ void EditorLineNumbers::calculateSelectionLines(int &selection_start_line,
 		std::max(editor_state.selection_start, editor_state.selection_end);
 
 	// Convert character positions to line indices
-	selection_start_line = std::lower_bound(editor_state.editor_content_lines.begin(),
+	selection_start_line = ( int )(std::lower_bound(editor_state.editor_content_lines.begin(),
 											editor_state.editor_content_lines.end(),
 											selection_start) -
-						   editor_state.editor_content_lines.begin();
+						   editor_state.editor_content_lines.begin());
 
-	selection_end_line = std::lower_bound(editor_state.editor_content_lines.begin(),
+	selection_end_line = ( int )(std::lower_bound(editor_state.editor_content_lines.begin(),
 										  editor_state.editor_content_lines.end(),
 										  selection_end) -
-						 editor_state.editor_content_lines.begin();
+						 editor_state.editor_content_lines.begin());
 }

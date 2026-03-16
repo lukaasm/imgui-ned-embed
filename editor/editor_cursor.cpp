@@ -33,9 +33,9 @@ void EditorCursor::spawnCursorAbove()
 	// Calculate new cursor position
 	const int target_line = current_line - 1;
 	const int target_start = editor_state.editor_content_lines[target_line];
-	const int target_end = (target_line + 1 < editor_state.editor_content_lines.size())
+	const int target_end = (target_line + 1 < ( int )editor_state.editor_content_lines.size())
 							   ? editor_state.editor_content_lines[target_line + 1] - 1
-							   : editor_state.fileContent.size();
+							   : ( int )editor_state.fileContent.size();
 
 	// Find position using CHARACTER OFFSET (not visual column)
 	int new_cursor =
@@ -68,9 +68,9 @@ void EditorCursor::spawnCursorBelow()
 	// Calculate new cursor position
 	const int target_line = current_line + 1;
 	const int target_start = editor_state.editor_content_lines[target_line];
-	const int target_end = (target_line + 1 < editor_state.editor_content_lines.size())
+	const int target_end = (target_line + 1 < ( int )editor_state.editor_content_lines.size())
 							   ? editor_state.editor_content_lines[target_line + 1] - 1
-							   : editor_state.fileContent.size();
+							   : ( int )editor_state.fileContent.size();
 
 	// Find position using CHARACTER OFFSET (not visual column)
 	int new_cursor =
@@ -230,7 +230,7 @@ void EditorCursor::cursorLeft()
 		{
 			utf8::unchecked::prior(it);
 		}
-		editor_state.cursor_index = std::distance(editor_state.fileContent.begin(), it);
+		editor_state.cursor_index = ( int )std::distance(editor_state.fileContent.begin(), it);
 	}
 	// Multi-cursors
 	for (size_t i = 0; i < editor_state.multi_cursor_indices.size(); ++i)
@@ -244,7 +244,7 @@ void EditorCursor::cursorLeft()
 				utf8::unchecked::prior(it);
 			}
 			editor_state.multi_cursor_indices[i] =
-				std::distance(editor_state.fileContent.begin(), it);
+				( int )std::distance(editor_state.fileContent.begin(), it);
 		}
 	}
 	calculateVisualColumn();
@@ -259,7 +259,7 @@ void EditorCursor::cursorRight()
 		{
 			utf8::unchecked::next(it);
 		}
-		editor_state.cursor_index = std::distance(editor_state.fileContent.begin(), it);
+		editor_state.cursor_index = ( int )std::distance(editor_state.fileContent.begin(), it);
 	}
 	// Multi-cursors
 	for (size_t i = 0; i < editor_state.multi_cursor_indices.size(); ++i)
@@ -273,7 +273,7 @@ void EditorCursor::cursorRight()
 				utf8::unchecked::next(it);
 			}
 			editor_state.multi_cursor_indices[i] =
-				std::distance(editor_state.fileContent.begin(), it);
+				( int )std::distance(editor_state.fileContent.begin(), it);
 		}
 	}
 	calculateVisualColumn();
@@ -388,7 +388,7 @@ void EditorCursor::cursorDown()
 		int target_line_idx = main_current_line_num + 1;
 		int new_line_start = editor_state.editor_content_lines[target_line_idx];
 		int new_line_end =
-			(target_line_idx + 1 < editor_state.editor_content_lines.size())
+			(target_line_idx + 1 < ( int )editor_state.editor_content_lines.size())
 				? editor_state.editor_content_lines[target_line_idx + 1] - 1
 				: editor_state.fileContent.size();
 		findPositionFromVisualColumn(new_line_start, new_line_end);
@@ -425,9 +425,9 @@ void EditorCursor::cursorDown()
 			int target_line_idx = multi_current_line_num + 1;
 			int new_line_start = editor_state.editor_content_lines[target_line_idx];
 			int new_line_end =
-				(target_line_idx + 1 < editor_state.editor_content_lines.size())
+				(target_line_idx + 1 < ( int )editor_state.editor_content_lines.size())
 					? editor_state.editor_content_lines[target_line_idx + 1] - 1
-					: editor_state.fileContent.size();
+					: ( int )editor_state.fileContent.size();
 
 			editor_state.cursor_index = current_multi_idx;
 			editor_state.cursor_column_prefered = multi_cursor_pref_col;
@@ -478,7 +478,7 @@ void EditorCursor::moveCursorVertically(std::string &text, int line_delta)
 	{
 		int new_line_start = editor_state.editor_content_lines[main_target_line_num];
 		int new_line_end =
-			(main_target_line_num + 1 < editor_state.editor_content_lines.size())
+			(main_target_line_num + 1 < ( int )editor_state.editor_content_lines.size())
 				? editor_state.editor_content_lines[main_target_line_num + 1] - 1
 				: text.size(); // Use text.size() for the very last line
 
@@ -519,9 +519,9 @@ void EditorCursor::moveCursorVertically(std::string &text, int line_delta)
 		{
 			int new_line_start = editor_state.editor_content_lines[multi_target_line_num];
 			int new_line_end =
-				(multi_target_line_num + 1 < editor_state.editor_content_lines.size())
+				(multi_target_line_num + 1 < ( int )editor_state.editor_content_lines.size())
 					? editor_state.editor_content_lines[multi_target_line_num + 1] - 1
-					: text.size();
+					: ( int )text.size();
 
 			// Temporarily set global state for findPositionFromVisualColumn
 			editor_state.cursor_index =
@@ -580,7 +580,7 @@ void EditorCursor::moveWordForward(const std::string &text)
 
 	if (editor_state.cursor_index != next_main_idx)
 	{ // If position actually changed
-		editor_state.cursor_index = next_main_idx;
+		editor_state.cursor_index = ( int )next_main_idx;
 		int current_line =
 			EditorUtils::GetLineFromPosition(editor_state.editor_content_lines,
 											 editor_state.cursor_index);
@@ -619,7 +619,7 @@ void EditorCursor::moveWordForward(const std::string &text)
 
 		if (editor_state.multi_cursor_indices[i] != next_multi_idx)
 		{ // If position actually changed
-			editor_state.multi_cursor_indices[i] = next_multi_idx;
+			editor_state.multi_cursor_indices[i] = ( int )next_multi_idx;
 			int mc_line =
 				EditorUtils::GetLineFromPosition(editor_state.editor_content_lines,
 												 editor_state.multi_cursor_indices[i]);
@@ -659,7 +659,7 @@ void EditorCursor::moveWordBackward(const std::string &text)
 
 	if (editor_state.cursor_index != next_main_idx)
 	{ // If position actually changed
-		editor_state.cursor_index = next_main_idx;
+		editor_state.cursor_index = ( int )next_main_idx;
 		int current_line =
 			EditorUtils::GetLineFromPosition(editor_state.editor_content_lines,
 											 editor_state.cursor_index);
@@ -690,7 +690,7 @@ void EditorCursor::moveWordBackward(const std::string &text)
 
 		if (editor_state.multi_cursor_indices[i] != next_multi_idx)
 		{ // If position actually changed
-			editor_state.multi_cursor_indices[i] = next_multi_idx;
+			editor_state.multi_cursor_indices[i] = ( int )next_multi_idx;
 			int mc_line =
 				EditorUtils::GetLineFromPosition(editor_state.editor_content_lines,
 												 editor_state.multi_cursor_indices[i]);
@@ -895,7 +895,7 @@ void EditorCursor::swapLines(int direction)
 				: editor_state.fileContent.size() - new_line_start;
 
 		editor_state.cursor_index =
-			new_line_start + std::min(cursor_offset, new_line_length);
+			new_line_start + ( int )std::min(cursor_offset, new_line_length);
 	}
 	// Handle line movement up
 	else if (direction == -1)
@@ -940,7 +940,7 @@ void EditorCursor::swapLines(int direction)
 				: editor_state.fileContent.size() - new_line_start;
 
 		editor_state.cursor_index =
-			new_line_start + std::min(cursor_offset, new_line_length);
+			new_line_start + ( int )std::min(cursor_offset, new_line_length);
 	}
 
 	// Common state updates
@@ -1078,7 +1078,7 @@ void EditorCursor::processCursorJump(std::string &text,
 						editor_state.editor_content_lines[mc_next_line_num] - 2;
 				} else
 				{
-					editor_state.multi_cursor_indices[i] = text.size();
+					editor_state.multi_cursor_indices[i] = ( int )text.size();
 				}
 				if (editor_state.multi_cursor_indices[i] <
 					editor_state.editor_content_lines[mc_current_line_num])

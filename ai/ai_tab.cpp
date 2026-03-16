@@ -42,7 +42,7 @@ AITab::~AITab()
 
 bool AITab::load_key()
 {
-	std::string key = gSettingsFileManager.getOpenRouterKey();
+	std::string key = "";
 	api_key = key;
 	// std::cout << "API Key: " << api_key << std::endl;
 	if (api_key.empty())
@@ -163,13 +163,13 @@ std::string AITab::collect_context() const
 	{
 		if (cursor_pos < editor_state.editor_content_lines[i])
 		{
-			current_line = i - 1;
+			current_line = ( int )(i - 1);
 			break;
 		}
 	}
 
-	const int total_lines = editor_state.editor_content_lines.size();
-	const int start_line = std::max(0, current_line - 10);
+	const int total_lines = ( int )editor_state.editor_content_lines.size();
+	const int start_line = std::max(0, ( int )(current_line - 10));
 	const int end_line = std::min(total_lines - 1, current_line + 5);
 
 	// Safety check for line indices
@@ -187,7 +187,7 @@ std::string AITab::collect_context() const
 		context_end = editor_state.editor_content_lines[end_line + 1];
 	} else
 	{
-		context_end = editor_state.fileContent.size();
+		context_end = ( int )editor_state.fileContent.size();
 	}
 
 	// Safety check for context bounds
@@ -277,7 +277,7 @@ void AITab::insert(const std::string &code)
 
 	ghost_text = code;
 	ghost_text_start = editor_state.cursor_index;
-	ghost_text_end = ghost_text_start + code.size();
+	ghost_text_end = ghost_text_start + ( int )code.size();
 	has_ghost_text = true;
 
 	// Insert the code into the file content

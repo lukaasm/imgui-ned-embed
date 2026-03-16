@@ -149,7 +149,7 @@ EditorHeader::truncateFilePath(const std::string &path, float maxWidth, ImFont *
 
 	// Truncate filename
 	std::string truncated = components.back();
-	int maxLength = truncated.length();
+	int maxLength = ( int )truncated.length();
 	while (maxLength > 0)
 	{
 		std::string temp = truncated.substr(0, maxLength) + "...";

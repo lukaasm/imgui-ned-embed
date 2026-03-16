@@ -114,7 +114,7 @@ void EditorMouse::handleMouseInput()
 		float availableWidth = windowWidth - padding * 3;
 
 		// Simple calculation: AI agent pane is the right portion based on split position
-		float leftSplit = gSettings.getSplitPos();
+		float leftSplit = 0.5f;
 		float agentPaneWidth = availableWidth * (1.0f - leftSplit);
 		float agentStartX = padding + availableWidth * leftSplit;
 		float agentEndX = agentStartX + agentPaneWidth;
@@ -325,7 +325,7 @@ void EditorMouse::handleContextMenu()
 		float availableWidth = windowWidth - padding * 3;
 
 		// Simple calculation: AI agent pane is the right portion based on split position
-		float leftSplit = gSettings.getSplitPos();
+		float leftSplit = 0.5f;//gSettings.getSplitPos();
 		float agentPaneWidth = availableWidth * (1.0f - leftSplit);
 		float agentStartX = padding + availableWidth * leftSplit;
 		float agentEndX = agentStartX + agentPaneWidth;
@@ -381,10 +381,7 @@ void EditorMouse::handleContextMenu()
 
 	ImGui::PushStyleColor(
 		ImGuiCol_PopupBg,
-		ImVec4(gSettings.getSettings()["backgroundColor"][0].get<float>() * .8,
-			   gSettings.getSettings()["backgroundColor"][1].get<float>() * .8,
-			   gSettings.getSettings()["backgroundColor"][2].get<float>() * .8,
-			   1.0f));
+		ImVec4(0.8f, 0.8f, 0.8f, 1.0f));
 	ImGui::PushStyleColor(ImGuiCol_Text, ImVec4(0.9f, 0.9f, 0.9f, 1.0f));
 	ImGui::PushStyleColor(ImGuiCol_Border, ImVec4(0.3f, 0.3f, 0.3f, 1.0f));
 
@@ -499,9 +496,9 @@ int EditorMouse::getCharIndexFromCoords()
 
 	// Get start/end indices for that line in the text.
 	int line_start = editor_state.editor_content_lines[clicked_line];
-	int line_end = (clicked_line + 1 < editor_state.editor_content_lines.size())
+	int line_end = (clicked_line + 1 < ( int )editor_state.editor_content_lines.size())
 					   ? editor_state.editor_content_lines[clicked_line + 1]
-					   : editor_state.fileContent.size();
+					   : ( int )editor_state.fileContent.size();
 
 	// Adjust line_end to exclude newline character if present
 	if (line_end > line_start && line_end <= editor_state.fileContent.size() &&

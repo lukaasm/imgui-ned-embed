@@ -434,8 +434,8 @@ void EditorKeyboard::handleCharacterInput()
 			}
 		}
 
-		final_new_cursor_positions.push_back(actual_insert_pos + inputText.size());
-		cumulative_insertion_offset += inputText.size();
+		final_new_cursor_positions.push_back(actual_insert_pos + ( int )inputText.size());
+		cumulative_insertion_offset += ( int )inputText.size();
 	}
 
 	if (!final_new_cursor_positions.empty())
@@ -501,7 +501,7 @@ std::string CalculateIndentForPosition(const std::string &content,
 		size_t last_newline_pos = content.rfind('\n', effective_pos - 1);
 		if (last_newline_pos != std::string::npos)
 		{
-			current_line_start = last_newline_pos + 1;
+			current_line_start = ( int )(last_newline_pos + 1);
 		}
 	}
 	// Make sure current_line_start is not past effective_pos itself.
@@ -705,8 +705,8 @@ void EditorKeyboard::handleEnterKey()
 					editor_state.fileColors.push_back(default_color);
 			}
 
-			final_new_cursor_positions.push_back(actual_insert_pos + insert_length);
-			cumulative_insertion_offset += insert_length;
+			final_new_cursor_positions.push_back(actual_insert_pos + ( int )insert_length);
+			cumulative_insertion_offset += ( int )insert_length;
 		}
 	}
 
@@ -970,7 +970,7 @@ void EditorKeyboard::handleTextInput()
 			editor_state.editor_content_lines[gEditor.getLineFromPos(input_start)];
 
 		int line_end =
-			input_end < editor_state.fileContent.size()
+			input_end < ( int )editor_state.fileContent.size()
 				? editor_state.editor_content_lines[gEditor.getLineFromPos(input_end)]
 				: editor_state.fileContent.size();
 

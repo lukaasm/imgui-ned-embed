@@ -1,16 +1,7 @@
-/*
-	File: main.cpp
-	Description: NEDitor main entry point
-*/
-#include "ned.h"
-int main()
-{
-	Ned ned;
-	if (!ned.initialize())
-	{
-		return -1;
-	}
-	std::cout << "🙈Starting NED...🙈" << '\n';
-	ned.run();
-	return 0;
+#include "hello_imgui/hello_imgui.h"
+
+int main(int , char *[]) {
+    HelloImGui::Run(
+        []{ ImGui::Text("Hello, world!"); }, // Gui code
+        "Hello!", true);                     // Window title + Window size auto
 }

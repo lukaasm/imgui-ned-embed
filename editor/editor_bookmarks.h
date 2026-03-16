@@ -213,16 +213,10 @@ class Bookmarks
 
 			ImGui::PushStyleColor(
 				ImGuiCol_FrameBg,
-				ImVec4(gSettings.getSettings()["backgroundColor"][0].get<float>() * .8,
-					   gSettings.getSettings()["backgroundColor"][1].get<float>() * .8,
-					   gSettings.getSettings()["backgroundColor"][2].get<float>() * .8,
-					   1.0f));
+				ImVec4(0.8f, 0.8f, 0.8f, 1.0f));
 			ImGui::PushStyleColor(
 				ImGuiCol_WindowBg,
-				ImVec4(gSettings.getSettings()["backgroundColor"][0].get<float>() * .8,
-					   gSettings.getSettings()["backgroundColor"][1].get<float>() * .8,
-					   gSettings.getSettings()["backgroundColor"][2].get<float>() * .8,
-					   1.0f));
+				ImVec4(0.8f, 0.8f, 0.8f, 1.0f));
 			ImGui::PushStyleColor(ImGuiCol_Border, ImVec4(0.3f, 0.3f, 0.3f, 1.0f));
 
 			ImGui::Begin("Bookmarks", nullptr, windowFlags);

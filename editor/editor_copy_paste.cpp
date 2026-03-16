@@ -102,9 +102,9 @@ void EditorCopyPaste::cutWholeLine()
 	int line = EditorUtils::GetLineFromPosition(editor_state.editor_content_lines,
 												editor_state.cursor_index);
 	int line_start = editor_state.editor_content_lines[line];
-	int line_end = (line + 1 < editor_state.editor_content_lines.size())
+	int line_end = (line + 1 < ( int )editor_state.editor_content_lines.size())
 					   ? editor_state.editor_content_lines[line + 1]
-					   : editor_state.fileContent.size();
+					   : ( int )editor_state.fileContent.size();
 
 	std::string line_text =
 		editor_state.fileContent.substr(line_start, line_end - line_start);
@@ -152,7 +152,7 @@ void EditorCopyPaste::pasteText()
 			ImVec4 defaultColor = TreeSitter::cachedColors.text;
 
 			int paste_start = editor_state.cursor_index;
-			int paste_end = paste_start + paste_content.size();
+			int paste_end = paste_start + ( int )paste_content.size();
 			if (editor_state.selection_start != editor_state.selection_end)
 			{
 				int start = getSelectionStart();
@@ -164,7 +164,7 @@ void EditorCopyPaste::pasteText()
 											   paste_content.size(),
 											   defaultColor);
 				paste_start = start;
-				paste_end = start + paste_content.size();
+				paste_end = start + ( int )paste_content.size();
 			} else
 			{
 				editor_state.fileContent.insert(editor_state.cursor_index, paste_content);

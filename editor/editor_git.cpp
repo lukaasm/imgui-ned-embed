@@ -10,9 +10,6 @@
 #include <memory>
 #include <sstream>
 #include <thread>
-#ifndef PLATFORM_WINDOWS
-#include <unistd.h>
-#endif
 #include <vector>
 
 namespace fs = std::filesystem;
@@ -91,7 +88,7 @@ void EditorGit::backgroundTask()
 		bool timeForRegularUpdate = (now - lastRegularUpdate) >= regularInterval;
 
 		if (shouldUpdate ||
-			(timeForRegularUpdate && gSettings.getSettings()["git_changed_lines"]))
+			(timeForRegularUpdate))
 		{
 			// Update current file only
 			if (!gFileExplorer.currentFile.empty())

@@ -208,7 +208,7 @@ void AIAgentHistory::refreshConversationList()
 				{
 					const auto &firstMsg = conversation["messages"][0];
 					entry.firstMessage = "";
-					entry.messageCount = conversation["messages"].size();
+					entry.messageCount = ( int )conversation["messages"].size();
 				} else
 				{
 					entry.firstMessage = "Empty conversation";
@@ -533,7 +533,7 @@ void AIAgentHistory::saveConversationHistory()
 						*currentConversationTimestamp)
 					{
 						shouldCreateNewConversation = false;
-						conversationIndexToUpdate = i;
+						conversationIndexToUpdate = ( int )i;
 						break;
 					}
 				}

@@ -68,7 +68,7 @@ void LSPGotoRef::request(
 							   auto result = response.result.get();
 							   auto locations = processResponse(result);
 							   callback(locations);
-						   } catch (const std::exception &e)
+						   } catch (const std::exception &)
 						   {
 							   // Pass empty vector on error
 							   std::vector<std::map<std::string, std::string>> empty;

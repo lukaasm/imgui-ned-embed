@@ -113,7 +113,7 @@ void Editor::updateLineStarts()
 	while ((pos = editor_state.fileContent.find('\n', pos)) != std::string::npos)
 	{
 		editor_state.editor_content_lines.push_back(
-			pos + 1); // Position after the newline character
+			( int )(pos + 1)); // Position after the newline character
 		++pos;
 	}
 
@@ -122,7 +122,7 @@ void Editor::updateLineStarts()
 		int start = editor_state.editor_content_lines[i];
 		int end = (i + 1 < editor_state.editor_content_lines.size())
 					  ? editor_state.editor_content_lines[i + 1] - 1
-					  : editor_state.fileContent.size();
+					  : ( int )editor_state.fileContent.size();
 		float width = ImGui::CalcTextSize(editor_state.fileContent.c_str() + start,
 										  editor_state.fileContent.c_str() + end)
 						  .x;
@@ -135,7 +135,7 @@ int Editor::getLineFromPos(int pos)
 	auto it = std::upper_bound(editor_state.editor_content_lines.begin(),
 							   editor_state.editor_content_lines.end(),
 							   pos);
-	return std::distance(editor_state.editor_content_lines.begin(), it) - 1;
+	return ( int )std::distance(editor_state.editor_content_lines.begin(), it) - 1;
 }
 
 float Editor::calculateTextWidth()
@@ -154,10 +154,10 @@ float Editor::calculateTextWidth()
 		{
 			std::string line = editor_state.fileContent.substr(start, end - start);
 			float width =
-				font->CalcTextSizeA(font->FontSize, FLT_MAX, 0.0f, line.c_str()).x;
+				font->CalcTextSizeA(font->LegacySize, FLT_MAX, 0.0f, line.c_str()).x;
 
 			// Apply compensation based on line length and font size
-			float compensation = (line.length() * 0.1f) * (24.0f / font->FontSize) * 10;
+			float compensation = (line.length() * 0.1f) * (24.0f / font->LegacySize) * 10;
 			width += compensation;
 
 			// Add extra safety margin

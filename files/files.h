@@ -64,10 +64,6 @@ class FileExplorer
 	bool handleFileDialogWorkflow();
 	bool handleFileDialog();
 
-	// Icon handling
-	// by file exntension for example .py or .cpp
-	void loadIcons();
-
 	ImTextureID getIconForFile(const std::string &filename)
 	{
 		// Get the filename without path

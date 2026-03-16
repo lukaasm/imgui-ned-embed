@@ -5,22 +5,9 @@
 #include <iostream>
 #include <sstream>
 #include <vector>
-
-#ifndef PLATFORM_WINDOWS
-#include <libgen.h> // For dirname
-#include <unistd.h> // For getcwd, readlink
-#else
-#define PATH_MAX 260
-#include <windows.h> // For GetModuleFileNameA
-#endif
 #include <limits.h> // Or <climits> for C++ style
-
 #include <algorithm>
 #include <iostream>
-
-#ifdef __APPLE__
-#include <CoreFoundation/CoreFoundation.h> // For macOS bundle functions
-#endif
 
 // Define static members
 bool TreeSitter::colorsNeedUpdate = true;
@@ -197,7 +184,7 @@ TreeSitter::createNewTree(TSParser *parser, bool initialParse, const std::string
 {
 	if (initialParse)
 	{
-		return ts_parser_parse_string(parser, nullptr, content.c_str(), content.size());
+		return ts_parser_parse_string(parser, nullptr, content.c_str(), ( int )content.size());
 	} else
 	{
 		TSInput input = createInput(content);
@@ -207,86 +194,8 @@ TreeSitter::createNewTree(TSParser *parser, bool initialParse, const std::string
 
 std::string TreeSitter::getResourcePath(const std::string &relativePath)
 {
-#ifdef __APPLE__
-	CFBundleRef mainBundle = CFBundleGetMainBundle();
-	if (mainBundle)
-	{
-		CFStringRef relPath = CFStringCreateWithCString(kCFAllocatorDefault,
-														relativePath.c_str(),
-														kCFStringEncodingUTF8);
-		CFURLRef resourceURL = CFBundleCopyResourceURL(mainBundle, relPath, NULL, NULL);
-		if (resourceURL)
-		{
-			char path[PATH_MAX];
-			if (CFURLGetFileSystemRepresentation(
-					resourceURL, true, (UInt8 *)path, PATH_MAX))
-			{
-				CFRelease(resourceURL);
-				CFRelease(relPath);
-				return std::string(path);
-			}
-			CFRelease(resourceURL);
-		}
-		CFRelease(relPath);
-	}
-#elif !defined(PLATFORM_WINDOWS)
-	// --- Linux/Ubuntu Fix ---
-	char exePath[PATH_MAX];
-	ssize_t len = readlink("/proc/self/exe", exePath, sizeof(exePath) - 1);
-	if (len != -1)
-	{
-		exePath[len] = '\0';
-		std::string exeDir = dirname(exePath);
-
-		// Construct path directly to "queries" folder (no "editor/queries" here)
-		std::string path = exeDir + "/" + relativePath;
-
-		// Debug
-		std::cout << "[DEBUG] Final Query Path: " << path << std::endl;
-
-		return path;
-	}
-	// Fallback (for development builds)
-	return "queries/" + relativePath; // Not "editor/queries"
-#else
-	// Windows - get executable path and construct relative path
-	char exePath[PATH_MAX];
-	DWORD pathLength = GetModuleFileNameA(NULL, exePath, PATH_MAX);
-	if (pathLength > 0 && pathLength < PATH_MAX)
-	{
-		// Get directory containing the executable
-		std::string exeDir(exePath);
-		size_t lastSlash = exeDir.find_last_of("\\");
-		if (lastSlash != std::string::npos)
-		{
-			exeDir = exeDir.substr(0, lastSlash);
-
-			// For portable builds: Check if queries folder exists relative to exe
-			std::string portablePath = exeDir + "\\" + relativePath;
-			std::ifstream testFile(portablePath);
-			if (testFile.good())
-			{
-				std::cout << "[DEBUG] Windows Portable Query Path: " << portablePath
-						  << std::endl;
-				return portablePath;
-			}
-
-			// For development builds: Go up one level from Release to build directory
-			size_t secondLastSlash = exeDir.find_last_of("\\");
-			if (secondLastSlash != std::string::npos)
-			{
-				std::string buildDir = exeDir.substr(0, secondLastSlash);
-				std::string devPath = buildDir + "\\" + relativePath;
-				std::cout << "[DEBUG] Windows Dev Query Path: " << devPath << std::endl;
-				return devPath;
-			}
-		}
-	}
 	// Fallback for development builds
 	return "..\\" + relativePath;
-#endif
-	// Fallback for development environment
-	return "editor/queries/" + relativePath;
 }
 
 TSQuery *TreeSitter::loadQueryFromCacheOrFile(TSLanguage *lang,
@@ -314,7 +223,7 @@ TSQuery *TreeSitter::loadQueryFromCacheOrFile(TSLanguage *lang,
 	uint32_t error_offset;
 	TSQueryError error_type;
 	TSQuery *query = ts_query_new(
-		lang, query_src.c_str(), query_src.size(), &error_offset, &error_type);
+		lang, query_src.c_str(), (int)query_src.size(), &error_offset, &error_type);
 
 	if (!query)
 	{

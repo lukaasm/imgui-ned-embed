@@ -16,7 +16,7 @@ inline ImVec4 GetRainbowColor(float timeScale = 2.0f)
 	double currentTime = ImGui::GetIO().DeltaTime;
 	if (currentTime > lastUpdateTime)
 	{
-		sharedBlinkTime += (currentTime - lastUpdateTime) * timeScale;
+		sharedBlinkTime += static_cast<float>((currentTime - lastUpdateTime) * timeScale);
 		lastUpdateTime = currentTime;
 	}
 
@@ -31,7 +31,7 @@ inline ImVec4 GetRainbowColor(float timeScale = 2.0f)
 inline int GetLineFromPosition(const std::vector<int> &line_starts, int content_index)
 {
 	auto it = std::upper_bound(line_starts.begin(), line_starts.end(), content_index);
-	return std::distance(line_starts.begin(), it) - 1;
+	return ( int )std::distance(line_starts.begin(), it) - 1;
 }
 
 } // namespace EditorUtils

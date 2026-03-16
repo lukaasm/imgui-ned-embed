@@ -11,34 +11,13 @@
 #include "config.h"
 #include "imgui.h"
 #include "imgui_internal.h"
-
-// Add includes for macOS window functions
-#ifdef __APPLE__
-#include "../macos_window.h"
-#endif
-
 #include <algorithm> //
 #include <cstdlib>
 #include <filesystem>
 #include <fstream>
 #include <iomanip>
 #include <iostream>
-#ifndef PLATFORM_WINDOWS
-#include <libgen.h>
-#endif
-
-#ifdef __APPLE__
-#include <mach-o/dyld.h>
-#include <sys/param.h>
-#endif
-#ifdef __linux__
-#include <linux/limits.h>
-#endif
-
 #include <map>
-#ifndef PLATFORM_WINDOWS
-#include <unistd.h>
-#endif
 
 namespace fs = std::filesystem;
 extern Settings gSettings;

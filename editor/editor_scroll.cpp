@@ -20,7 +20,7 @@ EditorScroll::EditorScroll()
 int EditorScroll::getLineFromPosition(const std::vector<int> &line_starts, int pos)
 {
 	auto it = std::upper_bound(line_starts.begin(), line_starts.end(), pos);
-	return std::distance(line_starts.begin(), it) - 1;
+	return ( int )std::distance(line_starts.begin(), it) - 1;
 }
 
 void EditorScroll::updateScrollAnimation()
@@ -227,11 +227,11 @@ float EditorScroll::calculateCursorXPosition()
 			// Measure each character individually
 			char c = *current;
 			float char_width =
-				font->CalcTextSizeA(font->FontSize, FLT_MAX, 0.0f, &c, &c + 1).x;
+				font->CalcTextSizeA(font->LegacySize, FLT_MAX, 0.0f, &c, &c + 1).x;
 
 			// Add compensation for this character
 			const float base_compensation = 0.3f;
-			const float size_factor = 12.0f / font->FontSize;
+			const float size_factor = 12.0f / font->LegacySize;
 			const float compensation_factor =
 				base_compensation * size_factor * size_factor;
 

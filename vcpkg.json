@@ -9,6 +9,12 @@
         "freetype",
         "nlohmann-json",
         "utfcpp",
-        "tree-sitter"
+        "tree-sitter",
+        {
+          "name": "hello-imgui",
+          "features": [
+            "experimental-dx12-binding"
+          ]
+        }
     ]
 }

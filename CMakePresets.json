@@ -27,7 +27,8 @@
         "CMAKE_RUNTIME_OUTPUT_DIRECTORY_RELEASE": {
           "type": "FILEPATH",
           "value": "${sourceDir}/bin"
-        }
+        },
+        "CMAKE_CXX_STANDARD": "20"
       }
     }
   ],

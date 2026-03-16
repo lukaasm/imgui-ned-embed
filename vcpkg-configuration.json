@@ -2,9 +2,14 @@
     "default-registry": {
         "kind": "git",
         "repository": "https://github.com/microsoft/vcpkg",
-        "baseline": "3dd44b931481d7a8e9ba412621fa810232b66289"
+        "baseline": "4b77da7fed37817f124936239197833469f1b9a8"
     },
-    "overlay-ports": [
-        "G:\\vcpkg-registry-builder\\ports"
-    ]
+    "registries": [
+    {
+      "kind": "git",
+      "repository": "https://github.com/lukaasm/vcpkg-registry",
+      "baseline": "1a79faf9a725a864c1e2596d60bd68cfcd57c442",
+      "packages": [ "lsp" ]
+    }
+  ]
 }

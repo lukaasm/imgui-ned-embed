@@ -16,8 +16,6 @@ Description: Implementation of the embeddable NED editor wrapper.
 #include "files/file_tree.h"
 #include "files/files.h"
 
-#include "shaders/shader_manager.h"
-#include "shaders/shader_types.h"
 #include "util/font.h"
 #include "util/init.h"
 #include "util/keybinds.h"
@@ -28,21 +26,7 @@ Description: Implementation of the embeddable NED editor wrapper.
 #include "util/welcome.h"
 #include "util/window_resize.h"
 
-// Include global variable declarations
-#include "globals.h"
-
 #include <algorithm> // for std::max
-
-// Stub for macOS-specific function that's not needed in the embedded version
-extern "C" void updateMacOSWindowProperties(float opacity, bool blurEnabled)
-{
-	// This function is not needed for the embedded app
-	(void)opacity;
-	(void)blurEnabled;
-}
-
-// Global variables are now defined in globals.cpp
-
 // Constants
 constexpr float kAgentSplitterWidth = 6.0f;
 
@@ -98,9 +82,6 @@ bool NedEmbed::initializeComponents()
 
 	// Initialize fonts
 	gFont.initialize();
-
-	// Initialize file explorer
-	gFileExplorer.loadIcons();
 
 	// Configure ImGui to only allow window movement from title bar
 	// This prevents accidental window movement when clicking/dragging in content areas
@@ -259,7 +240,7 @@ void NedEmbed::renderFileExplorer(float explorerWidth)
 void NedEmbed::renderAgentPane(float agentWidth)
 {
 	// Use the existing AI agent render function
-	gAIAgent.render(agentWidth, gFont.largeFont);
+	//gAIAgent.render(agentWidth, gFont.largeFont);
 }
 
 void NedEmbed::renderSplitter(float padding, float availableWidth)

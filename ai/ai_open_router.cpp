@@ -251,7 +251,7 @@ std::string OpenRouter::request(const std::string &prompt, const std::string &ap
 				return ""; // Return empty string if content is empty
 			}
 			return sanitize_completion(raw_content);
-		} catch (const json::exception &e)
+		} catch (const json::exception &)
 		{
 			return ""; // Return empty string on parse error
 		}

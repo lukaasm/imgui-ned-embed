@@ -10,16 +10,12 @@ editor.
 #include <functional>
 #include <string>
 
-#include "shaders/shader_manager.h"
-#include "shaders/shader_types.h"
 #include "util/font.h"
-// Frame functionality merged into Render class
 #include "util/splitter.h"
 #include "util/window_resize.h"
 
 // Forward declarations
-struct GLFWwindow;
-class ImFont;
+struct ImFont;
 class Settings;
 struct FramebufferState;
 class App;

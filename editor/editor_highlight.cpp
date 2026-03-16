@@ -25,12 +25,6 @@ void EditorHighlight::cancelHighlighting()
 
 void EditorHighlight::forceColorUpdate()
 {
-	pythonLexer.forceColorUpdate();
-	cppLexer.forceColorUpdate();
-	htmlLexer.forceColorUpdate();
-	jsxLexer.forceColorUpdate();
-	tsxLexer.forceColorUpdate();
-
 	TreeSitter::refreshColors();
 	TreeSitter::clearQueryCache();
 	TreeSitter::colorsNeedUpdate = true;
@@ -123,32 +117,6 @@ void EditorHighlight::highlightContent(bool fullRehighlight, bool sync)
 				TreeSitter::parse(content_copy, colors, extension_copy, fullRehighlight);
 			} else // Custom lexers or fallback for unsupported extensions
 			{
-				if (extension_copy == ".cpp" || extension_copy == ".h" ||
-					extension_copy == ".hpp")
-				{
-					cppLexer.applyHighlighting(content_copy, colors, 0);
-				} else if (extension_copy == ".py")
-				{
-					pythonLexer.applyHighlighting(content_copy, colors, 0);
-				} else if (extension_copy == ".html" || extension_copy == ".cshtml")
-				{
-					htmlLexer.applyHighlighting(content_copy, colors, 0);
-				} else if (extension_copy == ".js" || extension_copy == ".jsx")
-				{
-					jsxLexer.applyHighlighting(content_copy, colors, 0);
-				} else if (extension_copy == ".tsx" || extension_copy == ".ts")
-				{
-					tsxLexer.applyHighlighting(content_copy, colors, 0);
-				} else if (extension_copy == ".java")
-				{
-					javaLexer.applyHighlighting(content_copy, colors, 0);
-				} else if (extension_copy == ".cs")
-				{
-					csharpLexer.applyHighlighting(content_copy, colors, 0);
-				} else if (extension_copy == ".css")
-				{
-					cssLexer.applyHighlighting(content_copy, colors, 0);
-				}
 			}
 		} catch (const std::exception &e)
 		{

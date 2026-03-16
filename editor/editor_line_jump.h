@@ -61,19 +61,11 @@ class LineJump
 		ImGui::PushStyleVar(ImGuiStyleVar_WindowBorderSize, 1.0f);
 		ImGui::PushStyleVar(ImGuiStyleVar_WindowPadding, ImVec2(16.0f, 16.0f));
 		// background
-		ImGui::PushStyleColor(
-			ImGuiCol_WindowBg,
-			ImVec4(gSettings.getSettings()["backgroundColor"][0].get<float>() * .8,
-				   gSettings.getSettings()["backgroundColor"][1].get<float>() * .8,
-				   gSettings.getSettings()["backgroundColor"][2].get<float>() * .8,
-				   1.0f));
+		ImGui::PushStyleColor( ImGuiCol_WindowBg, ImVec4(0.8f, 0.8f, 0.8f, 1.0f));
 		ImGui::PushStyleColor(ImGuiCol_Border, ImVec4(0.3f, 0.3f, 0.3f, 1.0f));
 		ImGui::PushStyleColor(
 			ImGuiCol_FrameBg,
-			ImVec4(gSettings.getSettings()["backgroundColor"][0].get<float>() * .8,
-				   gSettings.getSettings()["backgroundColor"][1].get<float>() * .8,
-				   gSettings.getSettings()["backgroundColor"][2].get<float>() * .8,
-				   1.0f));
+			ImVec4(0.8f, 0.8f, 0.8f, 1.0f));
 
 		ImGui::Begin("LineJump", nullptr, windowFlags);
 
@@ -104,10 +96,7 @@ class LineJump
 		ImGui::PushStyleColor(ImGuiCol_Border, ImVec4(0.3f, 0.3f, 0.3f, 1.0f));
 		ImGui::PushStyleColor(
 			ImGuiCol_FrameBg,
-			ImVec4(gSettings.getSettings()["backgroundColor"][0].get<float>() * 0.8f,
-				   gSettings.getSettings()["backgroundColor"][1].get<float>() * 0.8f,
-				   gSettings.getSettings()["backgroundColor"][2].get<float>() * 0.8f,
-				   1.0f));
+			ImVec4(0.8f, 0.8f, 0.8f, 1.0f));
 
 		// Force keyboard focus each frame so the input stays focused
 		ImGui::SetKeyboardFocusHere();
@@ -171,7 +160,7 @@ class LineJump
 			editor_state.block_input = false;
 			memset(lineNumberBuffer, 0, sizeof(lineNumberBuffer));
 			justJumped = true;
-			ImGui::GetIO().ClearInputCharacters();
+			ImGui::GetIO().InputQueueCharacters.clear();
 			ImGui::End();
 			ImGui::PopStyleColor(3);
 			ImGui::PopStyleVar(3);

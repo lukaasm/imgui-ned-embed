@@ -1,12 +1,4 @@
 #pragma once
-#include "../lexers/cpp.h"
-#include "../lexers/csharp.h"
-#include "../lexers/css.h"
-#include "../lexers/html.h"
-#include "../lexers/java.h"
-#include "../lexers/jsx.h"
-#include "../lexers/python.h"
-#include "../lexers/tsx.h"
 
 #include "imgui.h"
 #include <atomic>
@@ -37,16 +29,6 @@ class EditorHighlight
 	void setTheme(const std::string &themeName);
 
   private:
-	// Lexer instances
-	PythonLexer::Lexer pythonLexer;
-	CppLexer::Lexer cppLexer;
-	HtmlLexer::Lexer htmlLexer;
-	JsxLexer::Lexer jsxLexer;
-	TsxLexer::Lexer tsxLexer;
-	JavaLexer::Lexer javaLexer;
-	CSharpLexer::Lexer csharpLexer;
-	CssLexer::Lexer cssLexer;
-
 	std::unordered_map<std::string, ImVec4> themeColors;
 
 	// Highlighting state management

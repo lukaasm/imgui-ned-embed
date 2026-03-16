@@ -37,30 +37,8 @@ const std::string UNDO_FILE = ".undo-redo-ned.json";
 
 extern FileExplorer gFileExplorer;
 
-void FileExplorer::loadIcons()
-{
-	for (const auto &iconFile : IconDefinitions::DEFAULT_ICONS)
-	{
-		loadSingleIcon(iconFile);
-	}
-
-	if (fileTypeIcons.empty())
-	{
-		createDefaultIcon();
-	}
-}
-
 uint32_t FileExplorer::createTexture(const unsigned char *pixels, int width, int height)
 {
-	//GLuint texture;
-	//glGenTextures(1, &texture);
-	//glBindTexture(GL_TEXTURE_2D, texture);
-	//glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
-	//glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
-	//glTexImage2D(
-	//	GL_TEXTURE_2D, 0, GL_RGBA, width, height, 0, GL_RGBA, GL_UNSIGNED_BYTE, pixels);
-	//return texture;
-
 	return 0;
 }
 
@@ -173,23 +151,6 @@ bool FileExplorer::loadSingleIcon(
 	//nsvgDelete(image);
 
 	return true;
-}
-
-void FileExplorer::createDefaultIcon()
-{
-	unsigned char defaultIcon[] = {
-		255,
-		255,
-		255,
-		255, // White pixel
-		0,
-		0,
-		0,
-		255 // Black pixel
-	};
-
-	auto texture = createTexture(defaultIcon, 2, 1);
-	fileTypeIcons["default"] = static_cast<ImTextureID>((void*)texture);
 }
 
 void FileExplorer::openFolderDialog()
@@ -694,7 +655,7 @@ void FileExplorer::applyOperation(const UndoRedoManager::Operation &op, bool isU
 		cursor_pos = 0;
 	if (cursor_pos > static_cast<int>(newContent.length()))
 	{
-		cursor_pos = newContent.length();
+		cursor_pos = ( int )newContent.length();
 	}
 	editor_state.cursor_index = cursor_pos;
 
@@ -935,7 +896,7 @@ void FileExplorer::reloadCurrentFile()
 			editor_state.cursor_index = currentCursorPos;
 		} else
 		{
-			editor_state.cursor_index = editor_state.fileContent.length();
+			editor_state.cursor_index = (int)editor_state.fileContent.length();
 		}
 
 		// Update tracking

@@ -541,7 +541,7 @@ void AIAgent::renderMessageHistory(const ImVec2 &size, ImFont *largeFont)
 			if (largeFont)
 				ImGui::PushFont(largeFont);
 			ImVec2 textSize =
-				largeFont->CalcTextSizeA(largeFont->FontSize, FLT_MAX, 0.0f, "Agent");
+				largeFont->CalcTextSizeA(largeFont->LegacySize, FLT_MAX, 0.0f, "Agent");
 			ImVec2 centerPos = ImVec2((windowSize.x - textSize.x) * 0.5f,
 									  (windowSize.y - textSize.y) * 0.5f - 30.0f);
 			ImGui::SetCursorPos(centerPos);
@@ -554,7 +554,7 @@ void AIAgent::renderMessageHistory(const ImVec2 &size, ImFont *largeFont)
 			for (const auto &item : displayItems)
 			{
 				ImVec2 itemSize = largeFont->CalcTextSizeA(
-					largeFont->FontSize, FLT_MAX, 0.0f, item.c_str());
+					largeFont->LegacySize, FLT_MAX, 0.0f, item.c_str());
 				maxItemWidth = std::max(maxItemWidth, itemSize.x);
 			}
 
@@ -576,7 +576,7 @@ void AIAgent::renderMessageHistory(const ImVec2 &size, ImFont *largeFont)
 				items.push_back(item.c_str());
 			ImGui::SetNextItemWidth(dropdownSize.x);
 			int previousSelectedItem = selectedItem;
-			if (ImGui::Combo("##AgentDropdown", &selectedItem, items.data(), items.size()))
+			if (ImGui::Combo("##AgentDropdown", &selectedItem, items.data(), ( int )items.size()))
 			{
 				if (selectedItem >= 0 && selectedItem < (int)dropdownItems.size())
 				{
@@ -626,7 +626,7 @@ void AIAgent::renderMessageHistory(const ImVec2 &size, ImFont *largeFont)
 				items.push_back(item.c_str());
 			ImGui::SetNextItemWidth(dropdownSize.x);
 			int previousSelectedItem = selectedItem;
-			if (ImGui::Combo("##AgentDropdown", &selectedItem, items.data(), items.size()))
+			if (ImGui::Combo("##AgentDropdown", &selectedItem, items.data(), ( int )items.size()))
 			{
 				if (selectedItem >= 0 && selectedItem < (int)dropdownItems.size())
 				{

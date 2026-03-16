@@ -3,20 +3,6 @@
 #include <fstream>
 #include <iomanip>
 #include <iostream>
-#ifndef PLATFORM_WINDOWS
-#include <libgen.h>
-#include <unistd.h>
-#endif
-
-#ifdef __APPLE__
-#include <mach-o/dyld.h>
-#include <sys/param.h>
-#endif
-#ifdef __linux__
-#include <linux/limits.h>
-#include <sys/types.h> // For ssize_t
-#endif
-
 #include "terminal.h"
 #include <map>
 

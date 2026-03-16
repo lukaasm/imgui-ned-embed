@@ -110,10 +110,7 @@ void LSPSymbolInfo::render()
 	ImGui::PushStyleVar(ImGuiStyleVar_ItemSpacing, ImVec2(8, 6));
 	ImGui::PushStyleColor(
 		ImGuiCol_WindowBg,
-		ImVec4(gSettings.getSettings()["backgroundColor"][0].get<float>() * .8,
-			   gSettings.getSettings()["backgroundColor"][1].get<float>() * .8,
-			   gSettings.getSettings()["backgroundColor"][2].get<float>() * .8,
-			   1.0f));
+		ImVec4(0.8f, 0.8f, 0.8f, 1.0f));
 	ImGui::PushStyleColor(ImGuiCol_Border, ImVec4(0.25f, 0.25f, 0.25f, 1.0f));
 
 	if (ImGui::Begin("SymbolInfoWindow",
