@@ -1,6 +1,12 @@
 cmake_minimum_required(VERSION 3.10)
 project(imgui-code-editor)
 
+if(MSVC)
+  # Match vcpkg x64-windows-static-md triplet (/MD, /MDd) to avoid
+  # unresolved STL runtime symbols when linking third-party static libs.
+  set(CMAKE_MSVC_RUNTIME_LIBRARY "MultiThreaded$<$<CONFIG:Debug>:Debug>DLL")
+endif()
+
 # ========================
 # Configuration & Settings
 # ========================
@@ -8,7 +14,6 @@ configure_file("${CMAKE_CURRENT_SOURCE_DIR}/util/config.h.in" "${CMAKE_BINARY_DI
 add_definitions(-DSOURCE_DIR="${CMAKE_SOURCE_DIR}")
 
 find_package(CURL REQUIRED)
-find_package(Freetype REQUIRED)
 find_package(libgit2 CONFIG REQUIRED)
 find_package(nlohmann_json CONFIG REQUIRED)
 find_package(utf8cpp CONFIG REQUIRED)
@@ -68,22 +73,20 @@ target_include_directories(ned_embed PUBLIC
     ${CMAKE_CURRENT_SOURCE_DIR}/ai
     ${CMAKE_CURRENT_SOURCE_DIR}/ai/mcp
   >
-  $<TARGET_PROPERTY:Freetype::Freetype,INTERFACE_INCLUDE_DIRECTORIES>
 )
 
 target_link_libraries(ned_embed PUBLIC
-    Freetype::Freetype
-    CURL::libcurl 
     libgit2::libgit2package
     unofficial::tree-sitter::tree-sitter
     lsp::lsp
+    CURL::libcurl
     ZLIB::ZLIB
 )
 
 find_package(hello-imgui CONFIG REQUIRED)
 
-hello_imgui_add_app(editor main.cpp)
-target_link_libraries(editor PUBLIC
+add_executable(editor WIN32 main.cpp)
+target_link_libraries( editor PUBLIC
   hello-imgui::hello_imgui
   ned_embed
 )

@@ -80,7 +80,7 @@ void LSPGotoRef::request(
 		std::vector<std::map<std::string, std::string>> empty;
 		callback(empty);
 
-	} catch (const std::exception &e)
+	} catch (const std::exception &)
 	{
 		// Pass empty vector on error
 		std::vector<std::map<std::string, std::string>> empty;

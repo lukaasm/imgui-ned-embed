@@ -972,7 +972,7 @@ void EditorKeyboard::handleTextInput()
 		int line_end =
 			input_end < ( int )editor_state.fileContent.size()
 				? editor_state.editor_content_lines[gEditor.getLineFromPos(input_end)]
-				: editor_state.fileContent.size();
+				: ( int )editor_state.fileContent.size();
 
 		gEditorHighlight.highlightContent();
 

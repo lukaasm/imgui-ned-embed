@@ -6,9 +6,9 @@
         "libgit2",
         "curl",
         "lsp",
-        "freetype",
         "nlohmann-json",
         "utfcpp",
+        "zlib",
         "tree-sitter",
         {
           "name": "hello-imgui",

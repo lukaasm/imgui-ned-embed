@@ -382,7 +382,7 @@ std::string OpenRouter::promptRequest(const std::string &prompt,
 			}
 			return raw_content; // Return raw content without sanitization for
 								// conversations
-		} catch (const json::exception &e)
+		} catch (const json::exception &)
 		{
 			return ""; // Return empty string on parse error
 		}
@@ -679,14 +679,14 @@ size_t OpenRouter::WriteDataStream(void *ptr, size_t size, size_t nmemb, std::st
 							}
 						}
 					}
-				} catch (const json::exception &e)
+				} catch (const json::exception &)
 				{
 					// Ignore JSON parsing errors for individual chunks
 				}
 			}
 		}
 		return size * nmemb;
-	} catch (const std::exception &e)
+	} catch (const std::exception &)
 	{
 		return 0;
 	} catch (...)
@@ -1420,7 +1420,7 @@ bool OpenRouter::promptRequestStream(const std::string &prompt,
 		}
 
 		return http_code == 200;
-	} catch (const std::exception &e)
+	} catch (const std::exception &)
 	{
 		return false;
 	} catch (...)
@@ -1475,7 +1475,7 @@ bool OpenRouter::jsonPayloadStream(const std::string &jsonPayload,
 		try
 		{
 			payload = json::parse(jsonPayload);
-		} catch (const json::parse_error &e)
+		} catch (const json::parse_error &)
 		{
 			curl_easy_cleanup(curl);
 			{
@@ -1604,7 +1604,7 @@ bool OpenRouter::jsonPayloadStream(const std::string &jsonPayload,
 		}
 
 		return http_code == 200;
-	} catch (const std::exception &e)
+	} catch (const std::exception &)
 	{
 		return false;
 	} catch (...)

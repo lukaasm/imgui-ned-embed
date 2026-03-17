@@ -461,8 +461,8 @@ void EditorMouse::handleContextMenu()
 		{
 			editor_state.selection_active = true;
 			editor_state.selection_start = 0;
-			editor_state.selection_end = editor_state.fileContent.size();
-			editor_state.cursor_index = editor_state.fileContent.size();
+			editor_state.selection_end = ( int )editor_state.fileContent.size();
+			editor_state.cursor_index = ( int )editor_state.fileContent.size();
 			show_context_menu = false;
 			ImGui::CloseCurrentPopup();
 		}

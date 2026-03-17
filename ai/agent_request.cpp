@@ -4,7 +4,6 @@
 #include "ai_open_router.h"
 #include "mcp/mcp_manager.h"
 #include <chrono>
-#include <curl/curl.h>
 #include <iostream>
 #include <mutex>
 #include <thread>
